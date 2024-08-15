@@ -8,10 +8,11 @@
 <body>
     <pre><code>
 <!-- // Exp-1
+// Exp-1
 // Design and implement C/C++ Program to find Minimum Cost Spanning Tree of a given connected undirected graph using Kruskal's algorithm
 #include <stdio.h>
 #include <stdlib.h>
-int i, j, k, a, b, u, v, n, ne = 1;
+int i, j,  a, b, u, v, n, ne = 1;
 int min, mincost = 0, cost[10][10], parent[10];
 int find(int);
 int uni(int, int);
@@ -25,7 +26,7 @@ void main()
     for (i = 1; i <= n; i++)
     {
         for (j = 1; j <= n; j++)
-        {
+       {
             scanf("%d", &cost[i][j]);
             if (cost[i][j] == 0)
                 cost[i][j] = 999;
@@ -56,7 +57,7 @@ void main()
         cost[a][b] = cost[b][a] = 999;
     }
     printf("\n\tMinimum cost = %d\n", mincost);
-    getch();
+
 }
 int find(int i)
 {
@@ -71,11 +72,42 @@ int uni(int i, int j)
         parent[j] = i;
         return 1;
     }
-    
-    
-    
-    
-    
+    return 0;
+}
+
+
+
+
+	Implementation of Kruskal's algorithm
+
+
+Enter the no. of vertices
+6
+
+Enter the cost adjacency matrix
+0 60 10 0 0 0 
+60 0 0 20 40 70 
+10 0 0 0 0 50 
+0 20 0 0 0 80 
+0 40 0 0 0 30 
+0 70 50 80 30 0 
+
+The edges of Minimum Cost Spanning Tree are
+
+
+1 edge (1,3) =10
+
+2 edge (2,4) =20
+
+3 edge (5,6) =30
+
+4 edge (2,5) =40
+
+5 edge (3,6) =50
+
+	Minimum cost = 150
+
+  
 // Find Minimum Cost Spanning Tree of a given undirected graph using Prim’s algorithm.
 #include <stdio.h>
 int a, b, u, v, n, i, j, ne = 1;
@@ -120,18 +152,34 @@ void main() {
 
     printf("\n Minimum cost = %d\n", mincost);
 }
-    
-    
-    
-    
-    
 
 
-// a. Design and implement C/C++ Program to solve All-Pairs Shortest Paths problem using Floyd's  algorithm.
+ Enter the number of nodes: 7
+
+ Enter the adjacency matrix:
+0 2 0 4 0 5 0 
+2 0 7 1 2 8 4 
+0 7 0 0 10 0 6 
+4 1 0 0 2 0 0
+0 3 10 2 0 0 0 
+5 8 0 0 0 0 1 
+0 4 6 0 0 1 0 
+
+
+ Edge 1:(1 2) cost: 2
+ Edge 2:(2 4) cost: 1
+ Edge 3:(2 5) cost: 2
+ Edge 4:(2 7) cost: 4
+ Edge 5:(7 6) cost: 1
+ Edge 6:(7 3) cost: 6
+ Minimum cost = 16
+
+
+=== Code Exited With Errors ===    
+    
+// a. Design and implement C/C++ Program to solve All-Pairs Shortest Paths problem 
 
 # include <stdio.h> 
-
-
 void main()
 {
 	int n, i, j, k;
@@ -188,6 +236,32 @@ void main()
 	
 }
 
+
+Enter the number of vertices
+4
+
+Enter the Cost adjacency Matrix
+0 999 3 999
+2 0 999 999
+999 7 0 1 
+6 999 999 0
+
+Input Graph
+0	999	3	999	
+2	0	999	999	
+999	7	0	1	
+6	999	999	0	
+
+
+All Pair Shortest Path Matrix
+0	10	3	4	
+2	0	5	6	
+7	7	0	1	
+6	16	9	0	
+
+
+
+=== Code Exited With Errors ===
 
 // b. Design and implement C/C++ Program to find the transitive closure using Warshall's
 // algorithm.
@@ -250,57 +324,108 @@ void main()
 	printf("\n");
 	
 }
+Enter the number of vertices
+4
 
-//  - 4
+Enter the Cost adjacency Matrix
+0 1 0 0 
+0 0 0 1
+0 0 0 0
+1 0 1 0
+
+Input Graph
+0	1	0	0	
+0	0	0	1	
+0	0	0	0	
+1	0	1	0	
+
+
+All Pair Shortest Path Matrix
+0	0	0	0	
+0	0	0	0	
+0	0	0	0	
+0	0	0	0	
+
+// EXP - 4
 // Design and implement C/C++ Program to find shortest paths from a given vertex in a weighted
 // connected graph to other vertices using Dijkstra's algorithm.//
 #include <stdio.h>
-#include <conio.h>
+
 #define infinity 999
-void dij(int n, int v, int cost[10][10], int dist[100])
-{
-    int i, u, count, w, flag[10], min;
-    for (i = 1; i <= n; i++)
-        flag[i] = 0, dist[i] = cost[v][i];
+
+void dij(int n, int v, int cost[10][10], int dist[10]) {
+    int i, u = 0, count, w, flag[10], min;
+
+    for (i = 1; i <= n; i++) {
+        flag[i] = 0;
+        dist[i] = cost[v][i];
+    }
+
     count = 2;
-    while (count <= n)
-    {
-        min = 99;
-        for (w = 1; w <= n; w++)
-            if (dist[w] < min && !flag[w])
-                min = dist[w], u = w;
+    while (count <= n) {
+        min = infinity;
+        for (w = 1; w <= n; w++) {
+            if (dist[w] < min && !flag[w]) {
+                min = dist[w];
+                u = w;
+            }
+        }
 
         flag[u] = 1;
         count++;
-        for (w = 1; w <= n; w++)
-            if ((dist[u] + cost[u][w] < dist[w]) && !flag[w])
+
+        for (w = 1; w <= n; w++) {
+            if ((dist[u] + cost[u][w] < dist[w]) && !flag[w]) {
                 dist[w] = dist[u] + cost[u][w];
+            }
+        }
     }
 }
-void main()
-{
+
+void main() {
     int n, v, i, j, cost[10][10], dist[10];
 
-    printf("\n Enter the number of nodes:");
+    printf("\nEnter the number of nodes: ");
     scanf("%d", &n);
-    printf("\n Enter the cost matrix:\n");
-    for (i = 1; i <= n; i++)
-        for (j = 1; j <= n; j++)
-        {
+
+    printf("\nEnter the cost matrix:\n");
+    for (i = 1; i <= n; i++) {
+        for (j = 1; j <= n; j++) {
             scanf("%d", &cost[i][j]);
-            if (cost[i][j] == 0)
+            if (cost[i][j] == 0) {
                 cost[i][j] = infinity;
+            }
         }
-    printf("\n Enter the source matrix:");
+    }
+
+    printf("\nEnter the source node: ");
     scanf("%d", &v);
+
     dij(n, v, cost, dist);
-    printf("\n Shortest path:\n");
-    for (i = 1; i <= n; i++)
-        if (i != v)
-            printf("%d->%d,cost=%d\n", v, i, dist[i]);
+
+    printf("\nShortest path:\n");
+    for (i = 1; i <= n; i++) {
+        if (i != v) {
+            printf("%d -> %d, cost = %d\n", v, i, dist[i]);
+        }
+    }
 }
 
+Enter the cost matrix:
+0 3 999  7 999 
+3 0 4 2 999 
+999 4 0 5 6 
+999 4 0 5 6 
+7 2 5 0 4
 
+Enter the source node: 11
+
+Shortest path:
+11 -> 1, cost = 1
+11 -> 2, cost = 4
+11 -> 3, cost = 0
+11 -> 4, cost = 5
+11 -> 5, cost = 6
 
 // Exp - 5 Design and implement C / C++ Program to obtain the Topological ordering of vertices in a given digraph.
 #include <stdio.h>
@@ -360,6 +485,16 @@ void main()
 }
 
 
+Enter the adjacency matrix:
+0 0 1 1 0 0 
+0 0 0 1 1 0
+0 0 0 0 0 1 
+0 0 0 0 0 1
+0 0 0 0 0 1 
+0 0 0 0 0 0 
+The topological Sequence is:
+1 4 0 3 2 5 
+
 // EXP-6
 // Design and implement C/C++ Program to solve 0/1 Knapsack problem using Dynamic
 // Programming method.
@@ -382,6 +517,7 @@ int knap(int i, int j)
     }
     return (v[i][j]);
 }
+
 void main()
 {
     int profit, count = 0;
@@ -427,6 +563,33 @@ void main()
             printf("%d\t%d\t%d\n", ++count, w[i], p[i]);
     printf("Total profit = %d\n", profit);
 }
+
+/tmp/XikMAVBvGn.o
+
+Enter the number of elements
+4
+Enter the profit and weights of the elements
+For item no 1
+20 2
+For item no 2
+10 1
+For item no 3
+20 3
+For item no 4
+15 2
+
+Enter the capacity 
+5
+Items included are
+Sl.no	weight	profit
+1	2	20
+2	1	10
+3	2	15
+Total profit = 45
+
+
+=== Code Exited With Errors ===
+	    
 // Design and implement C/C++ Program to solve discrete Knapsack and continuous Knapsack
 // problems using greedy approximation method.
 
@@ -489,58 +652,82 @@ for (i = 0; i < n; i++)
 printf("%f\t", x[i]);    
      return 0;
 }
- 
+
+Enter the number of items :4
+Enter Weight and Profit for item[0] :
+20 1
+Enter Weight and Profit for item[1] :
+10 1
+Enter Weight and Profit for item[2] :
+20 3
+Enter Weight and Profit for item[3] :
+15 2
+Enter the capacity of knapsack :
+5
+Knapsack problems using Greedy Algorithm:
+
+The maximum value is :0.750000
+Solution vector for greedy method: 0.250000	0.000000	0.000000	0.000000	
+
 
 //EXP-8
 //Design and implement C program to find a subset of a given set S={s1,s2,….sn} of n positive integers whose whose sum is equal to a given positive integer d.
 
-#include<stdio.h> 
-int s[10] , x[10],d ;
-void sumofsub ( int , int , int ) ;
- void main ()
-{
-int n , sum = 0 ;
- int i ;
+#include<stdio.h>
 
-printf ( " \n Enter the size of the set : " ) ;
- scanf ( "%d" , &n ) ;
-printf ( " \n Enter the set in increasing order:\n" ) ;
- for ( i = 1 ; i <= n ; i++ )
-scanf ("%d", &s[i] ) ;
-printf ( " \n Enter the value of d : \n " ) ;
- scanf ( "%d" , &d ) ;
-for ( i = 1 ; i <= n ; i++ )
- sum = sum + s[i] ;
-if ( sum < d || s[1] > d )
-printf ( " \n No subset possible : " ) ;
-else
-sumofsub ( 0 , 1 , sum ) ;
+int s[10], x[10], d;
+void sumofsub(int, int, int);
+void main() {
+  int n, sum = 0;
+  int i;
+
+  printf(" \n Enter the size of the set : ");
+  scanf("%d", & n);
+  printf(" \n Enter the set in increasing order:\n");
+  for (i = 1; i <= n; i++)
+    scanf("%d", & s[i]);
+
+  printf(" \n Enter the value of d : \n ");
+  scanf("%d", & d);
+  for (i = 1; i <= n; i++)
+    sum = sum + s[i];
+
+  if (sum < d || s[1] > d)
+    printf(" \n No subset possible : ");
+  else
+    sumofsub(0, 1, sum);
 }
-void sumofsub ( int m , int k , int r )
-{
-int i=1 ; x[k] = 1 ;
-if ( ( m + s[k] ) == d )
-{
-printf("Subset:");
-for ( i = 1 ; i <= k ; i++ )
- if ( x[i] == 1 )
-printf ( "\t%d" , s[i] ) ; 
-printf ( "\n" ) ;
 
 
+void sumofsub(int m, int k, int r) {
+  int i = 1;
+  x[k] = 1;
+  if ((m + s[k]) == d) {
+    printf("Subset:");
+    for (i = 1; i <= k; i++)
+      if (x[i] == 1)
+        printf("\t%d", s[i]);
+    printf("\n");
 
+  } else
+
+  if (m + s[k] + s[k + 1] <= d)
+    sumofsub(m + s[k], k + 1, r - s[k]);
+  if ((m + r - s[k] >= d) && (m + s[k + 1] <= d)) {
+    x[k] = 0;
+    sumofsub(m, k + 1, r - s[k]);
+  }
 }
-else
+
  
-if ( m + s[k] + s[k+1] <= d )
-sumofsub ( m + s[k] , k + 1 , r - s[k] ) ; 
-if ( ( m + r - s[k] >= d ) && ( m + s[k+1] <=d))
-{
-x[k] = 0;
-sumofsub ( m , k + 1 , r - s[k] ) ;
-}
-}
-
+ Enter the size of the set : 4
+ 
+ Enter the set in increasing order:
+3 5 6 7
+ 
+ Enter the value of d : 
+ 15
+Subset:	3	5	7
 
 // 9
 
@@ -650,6 +837,14 @@ printf("%d\t",a[k]);
 printf("\nTime taken is %f\n",ts);
 return 0;
 }
+
+	    Enter how many numbers:5
+
+The random numbers are:
+567203284	1922451467	220692663	1127575515	71173991	
+Sorted numbers are:
+71173991	220692663	567203284	1127575515	1922451467	
+Time taken is 0.000003
 
 // mergeSort
 
@@ -786,7 +981,24 @@ void main()
 }
 }
 
+//output
 
+Enter the number of Queens
+4
+
+Solution #1:
+*	Q	*	*	
+*	*	*	Q	
+Q	*	*	*	
+*	*	Q	*	
+
+Solution #2:
+*	*	Q	*	
+Q	*	*	*	
+*	*	*	Q	
+*	Q	*	*	
+
+Total solutions=
 -->
 
 </code>
